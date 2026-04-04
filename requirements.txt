@@ -1,0 +1,6 @@
+#lista de bibliotecas
+flask
+flask-sqlalchemy
+flask-migrate
+pymysql
+python-dotenv
