@@ -1,7 +1,7 @@
 #arquivo executado para ligar o servidor
 #ex:
 
-from site import create_app, db
+from app import create_app, db
 
 app = create_app()
 
