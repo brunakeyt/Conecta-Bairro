@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/layout.astro';
+import { LoginPage } from '../views/login/page';
+---
+
+<Layout title="Login">
+  <LoginPage client:only="react" />
+</Layout>

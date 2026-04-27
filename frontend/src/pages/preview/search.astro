@@ -1,0 +1,8 @@
+---
+import PreviewLayout from '../../layouts/preview-layout.astro';
+import SearchView from '../../views/search-view';
+---
+
+<PreviewLayout title="Search">
+  <SearchView client:only="react" />
+</PreviewLayout>

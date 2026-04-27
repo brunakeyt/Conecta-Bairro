@@ -1,0 +1,19 @@
+# build output
+frontend/dist/*
+# generated types
+frontend/.astro/*
+# dependencies
+frontend/node_modules/*
+# logs
+*.log
+# environment variables
+.env
+*.env.*
+!.env.example
+
+# macOS-specific files
+.DS_Store
+# jetbrains setting folder
+.idea/*
+.agents/
+.skills-lock.json

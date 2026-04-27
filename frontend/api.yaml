@@ -1,0 +1,752 @@
+openapi: 3.0.3
+info:
+  title: Conecta Bairro API
+  description: API for connecting professionals with clients in a curated marketplace
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: suporte@conectabairro.com.br
+    url: https://conectabairro.com.br
+
+servers:
+  - url: https://api.conectabairro.com.br/api/v1
+    description: Production server
+  - url: http://localhost:3000/api/v1
+    description: Development server
+
+paths:
+  /auth/google:
+    post:
+      operationId: googleAuth
+      summary: Authenticate with Google
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - googleToken
+              properties:
+                googleToken:
+                  type: string
+                  description: Google OAuth token from frontend
+                userType:
+                  type: string
+                  enum: [client, professional]
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/refresh:
+    post:
+      operationId: refreshToken
+      summary: Refresh access token
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - refresh_token
+              properties:
+                refresh_token:
+                  type: string
+      responses:
+        '200':
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+        '401':
+          description: Invalid refresh token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /categories:
+    get:
+      operationId: listCategories
+      summary: Get all categories
+      tags:
+        - Categories
+      parameters:
+        - name: includeInactive
+          in: query
+          schema:
+            type: boolean
+          description: Include inactive categories
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCategories'
+
+  /professionals:
+    get:
+      operationId: searchProfessionals
+      summary: Search professionals with filters
+      tags:
+        - Professionals
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          description: Free-text search query
+        - name: category
+          in: query
+          schema:
+            type: string
+          description: Category slug (matches Category.slug). Use the slug, not the id.
+        - name: state
+          in: query
+          schema:
+            type: string
+          description: Brazilian state, two-letter UF code (e.g. "SP", "RJ").
+        - name: city
+          in: query
+          schema:
+            type: string
+          description: City name as a free-text string. Match is case-insensitive.
+        - name: rating
+          in: query
+          schema:
+            type: number
+          description: Minimum rating (0–5). Returns professionals with rating >= value.
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum: [relevance, rating, newest, reviews_count, featured]
+          description: Sort option
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: List of professionals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProfessionals'
+
+  /professionals/featured:
+    get:
+      operationId: listFeaturedProfessionals
+      summary: Get featured professionals
+      tags:
+        - Professionals
+      responses:
+        '200':
+          description: Featured professionals list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Professional'
+
+  /professionals/slug/{slug}:
+    get:
+      operationId: getProfessionalBySlug
+      summary: Get professional profile by slug (SSR)
+      tags:
+        - Professionals
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Professional profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalProfile'
+        '404':
+          description: Professional not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /professionals/{id}/reviews:
+    get:
+      operationId: listProfessionalReviews
+      summary: Get professional reviews
+      tags:
+        - Professionals
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Reviews list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReviews'
+    post:
+      operationId: submitReview
+      summary: Create a review for a professional
+      tags:
+        - Professionals
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - rating
+                - comment
+              properties:
+                rating:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                comment:
+                  type: string
+                  minLength: 1
+                  maxLength: 2000
+      responses:
+        '201':
+          description: Review created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden (e.g. cannot review self)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /professionals/{id}:
+    put:
+      operationId: updateProfessional
+      summary: Update professional profile
+      tags:
+        - Professionals
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfessionalUpdate'
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalProfile'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /professionals/{id}/availability:
+    put:
+      operationId: toggleAvailability
+      summary: Update professional availability
+      tags:
+        - Professionals
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                available:
+                  type: boolean
+      responses:
+        '200':
+          description: Availability updated
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/me:
+    get:
+      operationId: getMyProfile
+      summary: Get current user profile
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: updateMyProfile
+      summary: Update current user profile
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /professionals/me:
+    get:
+      operationId: getMyProfessionalProfile
+      summary: Get authenticated professional's own profile
+      tags:
+        - Professionals
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Professional profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalProfile'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User is not a professional
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: updateMyProfessionalProfile
+      summary: Update authenticated professional's own profile
+      tags:
+        - Professionals
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfessionalUpdate'
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalProfile'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User is not a professional
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    AuthResponse:
+      type: object
+      required:
+        - user
+        - access_token
+        - refresh_token
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        access_token:
+          type: string
+          description: Short-lived JWT. Held in memory by the frontend client.
+        refresh_token:
+          type: string
+          description: Long-lived token. Persisted in localStorage by the frontend.
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Stable, machine-readable error code (e.g. "INVALID_TOKEN").
+        message:
+          type: string
+          description: Human-readable error message.
+        details:
+          type: object
+          additionalProperties: true
+          description: Optional structured context about the error.
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        role:
+          type: string
+          enum: [client, professional]
+        avatarUrl:
+          type: string
+        phone:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        createdAt:
+          type: string
+          format: date-time
+
+    UserUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+        avatarUrl:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        icon:
+          type: string
+          description: Material Symbols ligature name (e.g. "home_repair_service", "school"). Frontend renders via the Material Symbols font.
+
+    Professional:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        slug:
+          type: string
+        name:
+          type: string
+        title:
+          type: string
+        avatarUrl:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        rating:
+          type: number
+        reviewsCount:
+          type: integer
+        categories:
+          type: array
+          items:
+            type: string
+
+    ProfessionalProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        slug:
+          type: string
+        name:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        avatarUrl:
+          type: string
+        phone:
+          type: string
+          description: Primary contact phone. Also used as the WhatsApp number unless the team adds a dedicated whatsapp field.
+        email:
+          type: string
+        instagram:
+          type: string
+        website:
+          type: string
+        registrationNumber:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        state:
+          type: string
+        city:
+          type: string
+        district:
+          type: string
+        rating:
+          type: number
+        reviewsCount:
+          type: integer
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        verified:
+          type: boolean
+        available:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+    ProfessionalUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        phone:
+          type: string
+        instagram:
+          type: string
+        website:
+          type: string
+        registrationNumber:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+
+    Address:
+      type: object
+      properties:
+        state:
+          type: string
+        city:
+          type: string
+        district:
+          type: string
+        street:
+          type: string
+        number:
+          type: string
+
+    Review:
+      type: object
+      properties:
+        id:
+          type: string
+        userName:
+          type: string
+        userAvatarUrl:
+          type: string
+        rating:
+          type: integer
+        comment:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    PaginatedProfessionals:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Professional'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+
+    PaginatedCategories:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+
+    PaginatedReviews:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+
+    PaginationMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+
+tags:
+  - name: Authentication
+    description: User authentication endpoints
+  - name: Categories
+    description: Category management
+  - name: Professionals
+    description: Professional profiles and search
+  - name: Users
+    description: User profile management
