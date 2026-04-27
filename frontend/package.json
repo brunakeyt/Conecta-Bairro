@@ -1,0 +1,49 @@
+{
+  "name": "beneficial-binary",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "api:generate": "orval",
+    "api:generate:watch": "orval --watch",
+    "prebuild": "orval",
+    "refs:codemod": "node scripts/html-to-jsx.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.2",
+    "@astrojs/react": "^5.0.4",
+    "@shoojs/react": "^0.2.2",
+    "@tanstack/react-query": "^5.100.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^6.1.9",
+    "ky": "^2.0.2",
+    "nuqs": "^2.8.9",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "@faker-js/faker": "^10.4.0",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.11",
+    "autoprefixer": "^10.5.0",
+    "msw": "^2.13.6",
+    "node-html-parser": "^7.1.0",
+    "orval": "^8.8.1",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.8.3"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}

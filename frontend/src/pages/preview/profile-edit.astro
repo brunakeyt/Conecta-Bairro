@@ -1,0 +1,8 @@
+---
+import PreviewLayout from '../../layouts/preview-layout.astro';
+import { ProfileContainer } from '../../views/profile/container';
+---
+
+<PreviewLayout title="Profile Edit">
+  <ProfileContainer client:only="react" />
+</PreviewLayout>

@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/layout.astro';
+import { PublicProfilePage } from '../../views/public-profile/page';
+import { PROFESSIONAL_PROFILES } from '../../mocks/fixtures/professionals';
+
+export function getStaticPaths() {
+  return PROFESSIONAL_PROFILES.map(p => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+---
+
+<Layout title="Perfil do Profissional">
+  <PublicProfilePage slug={slug!} client:only="react" />
+</Layout>

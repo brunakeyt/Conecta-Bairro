@@ -1,0 +1,8 @@
+---
+import Layout from '../../layouts/layout.astro';
+import { AuthCallbackPage } from '../../views/auth-callback/page';
+---
+
+<Layout title="Entrando...">
+  <AuthCallbackPage client:only="react" />
+</Layout>

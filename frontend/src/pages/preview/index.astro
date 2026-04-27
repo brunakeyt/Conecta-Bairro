@@ -1,0 +1,43 @@
+---
+import PreviewLayout from '../../layouts/preview-layout.astro';
+---
+
+<PreviewLayout title="Preview Index">
+  <main class="pt-20 p-8">
+    <div class="max-w-2xl mx-auto">
+      <h1 class="font-headline text-3xl font-bold mb-8">Preview Pages</h1>
+      <ul class="space-y-4">
+        <li>
+          <a href="/preview/home" class="block bg-surface-container-low p-4 rounded-xl hover:bg-primary-container hover:text-white transition-colors">
+            <span class="font-semibold">Home</span>
+            <p class="text-sm opacity-70">Landing page with hero, categories, how it works</p>
+          </a>
+        </li>
+        <li>
+          <a href="/preview/login" class="block bg-surface-container-low p-4 rounded-xl hover:bg-primary-container hover:text-white transition-colors">
+            <span class="font-semibold">Login</span>
+            <p class="text-sm opacity-70">Auth page with Google login</p>
+          </a>
+        </li>
+        <li>
+          <a href="/preview/search" class="block bg-surface-container-low p-4 rounded-xl hover:bg-primary-container hover:text-white transition-colors">
+            <span class="font-semibold">Search</span>
+            <p class="text-sm opacity-70">Professional search with filters</p>
+          </a>
+        </li>
+        <li>
+          <a href="/preview/profile-edit" class="block bg-surface-container-low p-4 rounded-xl hover:bg-primary-container hover:text-white transition-colors">
+            <span class="font-semibold">Profile Edit</span>
+            <p class="text-sm opacity-70">Edit profile form</p>
+          </a>
+        </li>
+        <li>
+          <a href="/preview/public-profile" class="block bg-surface-container-low p-4 rounded-xl hover:bg-primary-container hover:text-white transition-colors">
+            <span class="font-semibold">Public Profile</span>
+            <p class="text-sm opacity-70">Public profile view</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </main>
+</PreviewLayout>
