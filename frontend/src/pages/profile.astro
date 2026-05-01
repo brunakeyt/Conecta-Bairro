@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/layout.astro';
+import { ProfilePage } from '../views/profile/page';
+---
+
+<Layout title="Perfil">
+  <ProfilePage client:only="react" />
+</Layout>

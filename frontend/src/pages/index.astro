@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/layout.astro';
+import { HomePage } from '../views/home/page';
+---
+
+<Layout title="Home" description="Conecte-se com os melhores profissionais do seu bairro.">
+  <HomePage client:only="react" />
+</Layout>

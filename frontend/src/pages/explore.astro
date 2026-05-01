@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/layout.astro';
+import { SearchPage } from '../views/search/page';
+---
+
+<Layout title="Explorar" description="Encontre profissionais por categoria, estado e cidade.">
+  <SearchPage client:only="react" />
+</Layout>
