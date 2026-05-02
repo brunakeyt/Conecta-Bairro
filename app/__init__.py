@@ -14,7 +14,7 @@ def create_app():
     db.init_app(app)
 
     # Importamos as rotas aqui para evitar erro de importação circular
-    from .routes import main
-    app.register_blueprint(main)
+    from .routes import api
+    app.register_blueprint(api)
 
     return app

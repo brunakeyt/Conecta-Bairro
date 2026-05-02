@@ -4,3 +4,5 @@ flask-sqlalchemy
 flask-migrate
 pymysql
 python-dotenv
+PyJWT
+google-auth
