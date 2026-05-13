@@ -72,7 +72,7 @@ export function SearchView({ professionals, categories, filters, onFilterChange 
         <FilterSidebar>
           <FilterSidebar.Group label="Categorias">
             <div className="space-y-3">
-              {categories.map((cat) => (
+              {categories?.map((cat) => (
                 <FilterSidebar.CheckboxItem
                   key={cat.slug}
                   label={cat.name}

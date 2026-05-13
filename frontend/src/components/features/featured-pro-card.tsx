@@ -34,7 +34,7 @@ export function FeaturedProCard({ professional }: FeaturedProCardProps) {
           {reviewsCount} avaliações
         </p>
         <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => (
+          {categories?.map((cat) => (
             <span key={cat} className="bg-surface-container-low px-3 py-1 rounded-full text-xs font-semibold">{cat}</span>
           ))}
         </div>
