@@ -1,4 +1,7 @@
 import { useAuth } from '../../auth/use-auth';
+import { PROFESSIONALS } from '../../mocks/fixtures/professionals';
+
+const MOCK_USER = PROFESSIONALS[0];
 
 function MenuItem({
   icon,
@@ -40,11 +43,12 @@ function MenuItem({
 
 export function UserDropdown() {
   const { identity, claims, signOut } = useAuth();
+  const isMock = import.meta.env.PUBLIC_ENABLE_MOCK === 'true';
 
-  if (!identity.userId) return null;
+  if (!identity.userId && !isMock) return null;
 
-  const avatarSrc = claims?.picture ?? '';
-  const userName = claims?.name ?? 'Usuário';
+  const avatarSrc = claims?.picture ?? (isMock ? MOCK_USER.avatarUrl : '');
+  const userName = claims?.name ?? (isMock ? MOCK_USER.name : 'Usuário');
 
   return (
     <div className="relative ml-2 group/dd">
