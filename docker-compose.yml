@@ -1,17 +1,17 @@
 services:
-  backend:
-    build: ./app
-    ports:
-      - "5000:5000"
-    env_file:
-      - .env
-    environment:
-      DATABASE_URL: "mysql+pymysql://root:${MYSQL_ROOT_PASSWORD}@db:3306/${MYSQL_DATABASE}"
-    volumes:
-      - ./app:/app
-    depends_on:
-      db:
-        condition: service_healthy
+  # backend:
+  #   build: ./app
+  #   ports:
+  #     - "5000:5000"
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     DATABASE_URL: "mysql+pymysql://root:${MYSQL_ROOT_PASSWORD}@db:3306/${MYSQL_DATABASE}"
+  #   volumes:
+  #     - ./app:/app
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
 
   frontend:
     build: ./frontend
@@ -22,23 +22,23 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    depends_on:
-      - backend
+    # depends_on:
+    #   - backend
 
-  db:
-    image: mysql:8.0
-    env_file:
-      - .env
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./app/create_database.sql:/docker-entrypoint-initdb.d/init.sql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+  # db:
+  #   image: mysql:8.0
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #     - ./app/create_database.sql:/docker-entrypoint-initdb.d/init.sql
+  #   healthcheck:
+  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
 
 volumes:
   mysql_data:

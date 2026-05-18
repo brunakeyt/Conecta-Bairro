@@ -69,7 +69,7 @@ export default function LoginView({ loading = false, onSignIn }: LoginViewProps)
           </div>
 
           {/* Segmented toggle */}
-          <div className="p-1 mb-8 bg-surface-container-low rounded-xl flex justify-center">
+          {/* <div className="p-1 mb-8 bg-surface-container-low rounded-xl flex justify-center">
             <button
               className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all w-full ${role === 'client' ? 'bg-white text-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface'}`}
               type="button"
@@ -84,7 +84,7 @@ export default function LoginView({ loading = false, onSignIn }: LoginViewProps)
             >
               Sou Profissional
             </button>
-          </div>
+          </div> */}
 
           {/* Google sign-in */}
           <div className="gap-4 mb-8 flex justify-center">
@@ -107,18 +107,18 @@ export default function LoginView({ loading = false, onSignIn }: LoginViewProps)
           </div>
 
           {/* Footer links */}
-          <div className="mt-10 text-center">
+          {/* <div className="mt-10 text-center">
             <p className="text-on-surface-variant font-medium">
               Ainda não tem conta?{' '}
               <a className="text-primary font-bold hover:underline decoration-2 underline-offset-4 transition-all" href="#">Cadastre-se</a>
             </p>
-          </div>
+          </div> */}
           <footer className="mt-12 pt-8 border-t border-outline-variant/20 flex flex-wrap justify-center gap-4 text-xs text-on-surface-variant/70">
             <a className="hover:text-on-surface transition-colors" href="#">Política de Privacidade</a>
             <span className="text-outline-variant/30">•</span>
             <a className="hover:text-on-surface transition-colors" href="#">Termos de Serviço</a>
             <span className="text-outline-variant/30">•</span>
-            <a className="hover:text-on-surface transition-colors" href="#">Ajuda</a>
+            <a className="hover:text-on-surf  ace transition-colors" href="#">Ajuda</a>
           </footer>
         </div>
       </section>

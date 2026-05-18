@@ -45,10 +45,12 @@ export function UserDropdown() {
   const { identity, claims, signOut } = useAuth();
   const isMock = import.meta.env.PUBLIC_ENABLE_MOCK === 'true';
 
+  console.log('UserDropdown render - identity:', identity, 'claims:', claims, isMock);
+
   if (!identity.userId && !isMock) return null;
 
-  const avatarSrc = claims?.picture ?? (isMock ? MOCK_USER.avatarUrl : '');
-  const userName = claims?.name ?? (isMock ? MOCK_USER.name : 'Usuário');
+  const avatarSrc =  (isMock ? MOCK_USER.avatarUrl : '') ?? claims?.picture
+  const userName = (isMock ? MOCK_USER.name : 'Usuário') ?? claims?.name
 
   return (
     <div className="relative ml-2 group/dd">
