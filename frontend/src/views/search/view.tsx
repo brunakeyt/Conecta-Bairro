@@ -9,8 +9,8 @@ import { UF_LIST } from './uf-list';
 
 const SORT_OPTIONS = [
   { value: 'relevance', label: 'Mais Relevantes' },
-  { value: 'rating', label: 'Melhor Avaliados' },
-  { value: 'reviews_count', label: 'Mais Avaliados' },
+  // { value: 'rating', label: 'Melhor Avaliados' },
+  // { value: 'reviews_count', label: 'Mais Avaliados' },
   { value: 'newest', label: 'Mais Recentes' },
 ];
 
@@ -103,7 +103,7 @@ export function SearchView({ professionals, categories, filters, onFilterChange 
             />
           </FilterSidebar.Group>
 
-          <FilterSidebar.Group label="Avaliação">
+          {/* <FilterSidebar.Group label="Avaliação">
             <div className="space-y-3">
               <FilterSidebar.CheckboxWithIcon
                 label="4.5+ estrelas"
@@ -112,7 +112,7 @@ export function SearchView({ professionals, categories, filters, onFilterChange 
                 onChange={(checked) => onFilterChange({ rating: checked ? '4.5' : '', page: 1 })}
               />
             </div>
-          </FilterSidebar.Group>
+          </FilterSidebar.Group> */}
 
           {hasActiveFilters && (
             <button

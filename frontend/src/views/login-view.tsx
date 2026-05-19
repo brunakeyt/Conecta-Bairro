@@ -28,7 +28,7 @@ export default function LoginView({ loading = false, onSignIn }: LoginViewProps)
             A casa dos <span className="text-secondary-container">melhores</span> profissionais.
           </h2>
           <p className="text-xl text-on-primary-container/90 leading-relaxed mb-8">
-            Conectamos visões ambiciosas aos especialistas que as tornam realidade. Entre para a Guild &amp; Gentry.
+            Conectamos clientes aos melhores profissionais. Entre para a Conecta Bairro.
           </p>
           <div className="flex items-center space-x-4">
             <div className="flex -space-x-3">
@@ -64,8 +64,8 @@ export default function LoginView({ loading = false, onSignIn }: LoginViewProps)
               </div>
               <span className="text-2xl font-bold tracking-tight text-primary">CONECTA BAIRRO</span>
             </div>
-            <h1 className="text-3xl font-bold text-on-surface mb-2">Bem-vindo de volta</h1>
-            <p className="text-on-surface-variant">Gerencie seus projetos e conexões em um só lugar.</p>
+            <h1 className="text-3xl font-bold text-on-surface mb-2">Bem vindo, profissional!</h1>
+            <p className="text-on-surface-variant">Ofereça serviços e enconntre profissionais em um só lugar.</p>
           </div>
 
           {/* Segmented toggle */}

@@ -54,7 +54,7 @@ export function PublicProfileView({ professional, reviews }: PublicProfileViewPr
 
             {/* Rating + About */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-surface-container">
+              {/* <div className="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-surface-container">
                 <h3 className="text-xl font-bold mb-6">Média de Avaliações</h3>
                 <div className="flex items-center gap-8">
                   <div className="text-center">
@@ -77,8 +77,8 @@ export function PublicProfileView({ professional, reviews }: PublicProfileViewPr
                     ))}
                   </div>
                 </div>
-              </div>
-              <div className="bg-primary-container p-8 rounded-2xl flex flex-col justify-between text-white shadow-lg">
+              </div> */}
+              <div className="bg-primary-container p-8 rounded-2xl flex flex-col justify-between text-white shadow-lg md:col-span-2">
                 <div className="bg-white/20 self-start p-2 rounded-lg">
                   <span className="material-symbols-outlined text-white text-3xl">info</span>
                 </div>
@@ -89,7 +89,7 @@ export function PublicProfileView({ professional, reviews }: PublicProfileViewPr
               </div>
             </section>
 
-            {/* Reviews Feed */}
+            {/* Reviews Feed
             <section className="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-surface-container">
               <h2 className="text-2xl font-bold mb-8">O que dizem os clientes</h2>
               {reviews.data.length === 0 ? (
@@ -119,7 +119,7 @@ export function PublicProfileView({ professional, reviews }: PublicProfileViewPr
                   ))}
                 </div>
               )}
-            </section>
+            </section> */}
           </main>
 
           <aside>
@@ -159,7 +159,7 @@ export function PublicProfileView({ professional, reviews }: PublicProfileViewPr
                 <p className="text-[11px] text-center text-on-surface-variant leading-tight mt-4">Contato via WhatsApp direto com o profissional.</p>
               </div>
 
-              <div className="bg-surface-container-low p-6 rounded-2xl space-y-4">
+              {/* <div className="bg-surface-container-low p-6 rounded-2xl space-y-4">
                 <h4 className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Verificações de Segurança</h4>
                 <div className="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-3 border border-white/60">
                   <span className="material-symbols-outlined text-green-600" style={{ fontVariationSettings: '"FILL" 1' }}>verified_user</span>
@@ -175,7 +175,7 @@ export function PublicProfileView({ professional, reviews }: PublicProfileViewPr
                     <p className="text-[10px] text-on-surface-variant">Certidão negativa verificada.</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="flex justify-between px-2">
                 <button className="text-xs font-bold text-on-surface-variant flex items-center gap-1 hover:text-primary transition-colors">
