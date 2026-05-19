@@ -30,8 +30,8 @@ export function HomeContainer() {
     );
   }
 
-  const categories = (catsQuery.data as unknown as Category[]) ?? [];
-  const featured = (featuredQuery.data as unknown as Professional[]) ?? [];
+  const categories = (catsQuery.data?.data?.data ?? []) as Category[];
+  const featured = (featuredQuery.data?.data ?? []) as Professional[];
 
   return <HomeView categories={categories} featured={featured} />;
 }

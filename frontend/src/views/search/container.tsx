@@ -45,8 +45,8 @@ export function SearchContainer() {
     );
   }
 
-  const professionals = (searchQuery.data as unknown as PaginatedProfessionals) ?? EMPTY;
-  const categories = (catsQuery.data as unknown as Category[]) ?? [];
+  const professionals = searchQuery.data?.data ?? EMPTY;
+  const categories = catsQuery.data?.data ?? [];
 
   return (
     <SearchView
