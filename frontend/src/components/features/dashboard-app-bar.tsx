@@ -30,9 +30,9 @@ export function DashboardAppBar({ navLinks = defaultNav }: DashboardAppBarProps)
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <button className="p-2 text-on-surface-variant hover:bg-slate-100/50 rounded-full transition-all">
+          {/* <button className="p-2 text-on-surface-variant hover:bg-slate-100/50 rounded-full transition-all">
             <span className="material-symbols-outlined">notifications</span>
-          </button>
+          </button> */}
           <UserDropdown />
         </div>
       </div>

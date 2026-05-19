@@ -116,7 +116,7 @@ export default function HomeView() {
               </button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {categories.map((cat) => (
+              {categories?.map((cat) => (
                 <div key={cat.id} className="group bg-surface-container-low p-8 rounded-3xl text-center hover:bg-primary-container transition-all duration-300 cursor-pointer">
                   <div className="w-16 h-16 bg-surface-container-lowest rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
                     <span className="material-symbols-outlined text-3xl text-primary">{cat.icon}</span>

@@ -53,7 +53,7 @@ export function HomeView({ categories, featured }: HomeViewProps) {
                     type="text"
                   />
                   <datalist id="categories-datalist">
-                    {categories.map(cat => <option key={cat.slug} value={cat.name} />)}
+                    {categories?.map(cat => <option key={cat.slug} value={cat.name} />)}
                   </datalist>
                 </div>
                 <div className="flex-1 flex items-center px-4 gap-3 bg-surface-container-low rounded-xl py-3 focus-within:ring-2 ring-primary/20 transition-all">
@@ -109,7 +109,7 @@ export function HomeView({ categories, featured }: HomeViewProps) {
               </a>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {categories.map((cat) => (
+              {categories?.map((cat) => (
                 <a key={cat.id} href={`/explore?category=${cat.slug}`} className="group bg-surface-container-low p-8 rounded-3xl text-center hover:bg-primary-container transition-all duration-300 cursor-pointer">
                   <div className="w-16 h-16 bg-surface-container-lowest rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
                     <span className="material-symbols-outlined text-3xl text-primary">{cat.icon}</span>

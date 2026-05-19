@@ -25,16 +25,16 @@ export function FeaturedProCard({ professional }: FeaturedProCardProps) {
               <span className="material-symbols-outlined text-xs">location_on</span> {city}, {state}
             </p>
           </div>
-          <div className="flex items-center gap-1 bg-surface-container-high px-3 py-1 rounded-full">
+          {/* <div className="flex items-center gap-1 bg-surface-container-high px-3 py-1 rounded-full">
             <span className="material-symbols-outlined text-secondary-container text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
             <span className="font-bold text-sm">{rating}</span>
-          </div>
+          </div> */}
         </div>
-        <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">
+        {/* <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">
           {reviewsCount} avaliações
-        </p>
+        </p> */}
         <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => (
+          {categories?.map((cat) => (
             <span key={cat} className="bg-surface-container-low px-3 py-1 rounded-full text-xs font-semibold">{cat}</span>
           ))}
         </div>

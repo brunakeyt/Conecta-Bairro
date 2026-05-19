@@ -12,7 +12,7 @@ function CallbackInner() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-surface">
-      <div className="flex flex-col items-center gap-4">
+      {/* <div className="flex flex-col items-center gap-4">
         <span
           className="material-symbols-outlined text-primary text-5xl animate-spin"
           style={{ fontVariationSettings: '"FILL" 1' }}
@@ -20,7 +20,7 @@ function CallbackInner() {
           progress_activity
         </span>
         <p className="text-on-surface-variant font-medium">Entrando...</p>
-      </div>
+      </div> */}
     </div>
   );
 }

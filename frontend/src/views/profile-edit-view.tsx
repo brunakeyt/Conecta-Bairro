@@ -65,10 +65,10 @@ export default function ProfileEditView({ user, professional, onSave, saving }: 
                 <span className="material-symbols-outlined">person</span>
                 <span className="font-semibold">Dados Pessoais</span>
               </a>
-              <a className="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+              {/* <a className="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
                 <span className="material-symbols-outlined">location_on</span>
                 <span className="font-medium">Endereço</span>
-              </a>
+              </a> */}
               <div className="mt-12 pt-8 border-t border-slate-200 px-4">
                 <div className="flex items-center gap-4 p-4 rounded-3xl bg-surface-container-low">
                   {user.avatarUrl ? (

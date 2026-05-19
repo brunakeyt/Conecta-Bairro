@@ -55,8 +55,10 @@ SearchAppBar.Search = ({
 );
 
 SearchAppBar.IconButton = ({ icon, badge = false }: { icon: string; badge?: boolean }) => (
-  <button className="hover:bg-slate-100 rounded-full p-2 transition-colors relative">
+<>
+  {/* <button className="hover:bg-slate-100 rounded-full p-2 transition-colors relative">
     <span className="material-symbols-outlined text-slate-500">{icon}</span>
     {badge && <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />}
-  </button>
+  </button> */}
+  </>
 );
